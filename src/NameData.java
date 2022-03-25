@@ -5,29 +5,23 @@
 public class NameData {
     // fields
     private int rank;
-    private int maleNumber;
-    private int femaleNumber;
-    private String maleName;
-    private String femaleName;
+    private int nameNumber;
+    private String babyName;
 
     //getter methods
     public int getRank(){ return rank;}
-    public int getMaleNumber() {return maleNumber;}
-    public int getFemaleNumber() {return femaleNumber;}
-    public String getMaleName() {return maleName;}
-    public String getFemaleName() {return femaleName;}
+    public int getNameNumberNumber() {return nameNumber;}
+    public String getBabyName() {return babyName;}
 
     //setter methods
     public void setRank(int rankInput){rank = rankInput;}
-    public void setMaleNumber(int maleNumberInput) {maleNumber = maleNumberInput;}
-    public void setFemaleNumber (int femaleNumberInput) {femaleNumber = femaleNumberInput;}
-    public void setMaleName(String maleNameInput){maleName = maleNameInput;}
-    public void setFemaleName(String femaleNameInput) {femaleName = femaleNameInput;}
+    public void setNameNumber (int nameNumberInput) {nameNumber = nameNumberInput;}
+    public void setBabyNameName(String babyNameInput) {babyName = babyNameInput;}
 
     public String toString(){
-        return "";
+        return Integer.toString(rank) + "  " + babyName +  " " + Integer.toString(nameNumber);
     }
-    public int compareTo(){
-        return 1;
+    public int compareTo(String externalBabyName){
+        return babyName.compareTo(externalBabyName);
     }
 }
