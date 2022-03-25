@@ -1,3 +1,5 @@
+
+
 public class Node<NameData> {
     private NameData element; // reference to the element stored at this node
     private Node<NameData> prev; // reference to the previous node in the list

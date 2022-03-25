@@ -16,12 +16,16 @@ public class NameData {
     //setter methods
     public void setRank(int rankInput){rank = rankInput;}
     public void setNameNumber (int nameNumberInput) {nameNumber = nameNumberInput;}
-    public void setBabyNameName(String babyNameInput) {babyName = babyNameInput;}
+    public void setBabyName(String babyNameInput) {babyName = babyNameInput;}
 
     public String toString(){
         return Integer.toString(rank) + "  " + babyName +  " " + Integer.toString(nameNumber);
     }
-    public int compareTo(String externalBabyName){
-        return babyName.compareTo(externalBabyName);
+    public boolean compareTo(NameData opposingNode){
+        return (this.equals(opposingNode));
+    }
+
+    public void occurenceIncrementUpdate(int newOccurenceData){
+        nameNumber += newOccurenceData;
     }
 }

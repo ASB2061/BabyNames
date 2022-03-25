@@ -61,11 +61,20 @@ public class DoublyLinkedList<NameData> {
     }
 
     public void insertAlpha(NameData inputName){
-        addFirst(inputName);
 
         for (int i = 0; i < size; i++){
-            header.getNext();
+           // if (inputName.compareTo(header.getElement())){
+
+            //}
         }
+    }
+
+    public String fetch(String name){
+        for (int i =0; i < size; i++){
+            header.getNext();
+
+        }
+        return "";
     }
     /**
      * toString method for the Doubly Linked List class
@@ -77,7 +86,7 @@ public class DoublyLinkedList<NameData> {
         }
         Node<NameData> curr = header.getNext();               // Start with the node after the header
         String str = curr.toString();                  // Using toString from the Node Class
-        while (curr.getNext() != trailer){             // Keep hoping until the next node is the trailer
+        while (curr.getNext() != trailer){             // Keep hopping until the next node is the trailer
             curr = curr.getNext();
             str = str + " -> " + curr.toString();      // Using toString from the Node Class
         }
