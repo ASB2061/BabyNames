@@ -61,16 +61,25 @@ public class DoublyLinkedList<NameData> {
     }
 
     public void insertAlpha(NameData inputName){
-
-        for (int i = 0; i < size; i++){
-           // if (inputName.compareTo(header.getElement())){
-
-            //}
+        if (inputName.toString().compareTo(header.toString()) < 0){
+            addFirst(inputName);
+            return;
         }
+        Node <NameData> currentNode = header.getNext();
+        while (currentNode.getNext() != trailer){
+            if (inputName.toString().compareTo(currentNode.getNext().toString()) > 0){
+                currentNode = currentNode.getNext();
+            }
+            else if (inputName.toString().compareTo(currentNode.getNext().toString()) < 0){
+                addBetween(inputName, currentNode, currentNode.getNext());
+
+            }
+        }
+
     }
 
     public String fetch(String name){
-        for (int i =0; i < size; i++){
+        for (int i =0; i < size + 1; i++){
             header.getNext();
 
         }

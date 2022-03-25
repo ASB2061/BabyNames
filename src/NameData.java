@@ -18,6 +18,11 @@ public class NameData {
     public void setNameNumber (int nameNumberInput) {nameNumber = nameNumberInput;}
     public void setBabyName(String babyNameInput) {babyName = babyNameInput;}
 
+    // Constructor
+    public NameData(){
+
+    }
+
     public String toString(){
         return Integer.toString(rank) + "  " + babyName +  " " + Integer.toString(nameNumber);
     }
