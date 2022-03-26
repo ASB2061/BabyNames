@@ -61,15 +61,50 @@ public class DoublyLinkedList<NameData> {
 
     public void insertAlpha(NameData inputName){
         if (isEmpty()) addFirst(inputName);
-        Node<NameData> curr = addBetween(inputName, header, header.getNext());
-        if(curr.getElement().toString().compareTo(header.getNext().getElement().toString()) > 0){
-
+        Node<NameData> curr = addBetween(null, header, header.getNext());
+        if(inputName.toString().compareTo(header.getNext().getElement().toString()) > 0){
+            curr = curr.getNext();
         }
         while (curr.getNext() != trailer){
-
-            curr = curr.getNext();             // Keep hoping until the next node is the trailer
-
+            if(inputName.toString().compareTo(curr.getNext().getElement().toString()) > 0){
+                curr = curr.getNext();
+                break;
+            }
+            else if (inputName.toString().compareTo(curr.getNext().getElement().toString()) < 0){
+                addBetween(inputName, curr, curr.getNext());
+                remove(curr);
+                break;
+            }
         }
+    }
+
+    public NameData fetch(String name){
+        Node<NameData> curr = addBetween(null, header, header.getNext());
+        if(name.compareTo(header.getNext().getElement().toString()) == 0){
+            return header.getNext().getElement();
+        }
+        while (curr.getNext() != trailer){
+            if(name.compareTo(curr.getNext().getElement().toString()) == 0){
+                return curr.getNext().getElement();
+            }
+            curr = curr.getNext();
+        }
+        return null;
+    }
+
+    public int findPostion(String name){
+        Node<NameData> curr = addBetween(null, header, header.getNext());
+        int counter = 0;
+        if(name.compareTo(header.getNext().getElement().toString()) == 0){
+            return counter;
+        }
+        while (curr.getNext() != trailer){
+            if(name.compareTo(curr.getNext().getElement().toString()) == 0){
+                return curr.getNext().getElement();
+            }
+            curr = curr.getNext();
+        }
+        return -1;
     }
 
     public String toString(){
