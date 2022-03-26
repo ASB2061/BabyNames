@@ -9,7 +9,7 @@ public class NameData {
     private String babyName;
 
     //getter methods
-    public int getRank(){ return rank;}
+    public int getRank(){return rank;}
     public int getNameNumberNumber() {return nameNumber;}
     public String getBabyName() {return babyName;}
 
@@ -19,12 +19,14 @@ public class NameData {
     public void setBabyName(String babyNameInput) {babyName = babyNameInput;}
 
     // Constructor
-    public NameData(){
-
+    public NameData(String inputtedName, int numberOfNames){
+        setBabyName(inputtedName);
+        setNameNumber(numberOfNames);
     }
 
     public String toString(){
-        return Integer.toString(rank) + "  " + babyName +  " " + Integer.toString(nameNumber);
+        //return //Integer.toString(rank) + "  " + babyName +  " " + Integer.toString(nameNumber);
+        return getBabyName();
     }
     public boolean compareTo(NameData opposingNode){
         return (this.equals(opposingNode));
