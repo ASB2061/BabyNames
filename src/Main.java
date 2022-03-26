@@ -22,6 +22,6 @@ public class Main {
         ArrayList<String[]> theNames = new ArrayList<String[]>(reader.readAll());
         reader.close();
 
-        DoublyLinkedList maleNames = new DoublyLinkedList();
+       // DoublyLinkedList maleNames = new DoublyLinkedList();
     }
 }
