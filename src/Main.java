@@ -13,11 +13,14 @@ import java.util.ArrayList;
  *
  */
 public class Main {
+    String[] maleNames;
+    String[] femaleNames;
+    String[] fileNames;
     public static void main(String[] args) throws IOException, CsvException {
         // Your main code goes here. Remember to create the NameData, Node and DoublyLinkedList classes in separate files
-        //if (args[0] == '-f'){
+        if (args[0].equals("-f")){
 
-        //}
+        }
         CSVReaderHeaderAware reader = new CSVReaderHeaderAware(new FileReader("names1990.csv"));
         ArrayList<String[]> theNames = new ArrayList<String[]>(reader.readAll());
         reader.close();

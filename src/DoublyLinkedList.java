@@ -99,8 +99,9 @@ public class DoublyLinkedList<NameData> {
             return counter;
         }
         while (curr.getNext() != trailer){
+            counter++;
             if(name.compareTo(curr.getNext().getElement().toString()) == 0){
-                return curr.getNext().getElement();
+                return counter+1;
             }
             curr = curr.getNext();
         }
