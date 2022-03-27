@@ -24,9 +24,17 @@ public class Main {
         // Your main code goes here. Remember to create the NameData, Node and DoublyLinkedList classes in separate files
         int i = 0;
         while (i < args.length)  {
-            if (args[i].equals("-f") && (!args[i+1].equals("-f") && !args[i+1].equals("-m")) && !args[i + 1][:5].equals("names")){
+            if (args[i].equals("-f") && (!args[i+1].equals("-f") && !args[i+1].equals("-m"))){
                 femaleNames.add(args[i+1]);
-                i += 2;
+                if (args[i + 2].contains("names")){
+                    fileNames.add(args[i + 2]);
+                    i += 2;
+                }
+
+
+            }
+            else if (args[i].equals("-m") && (!args[i+1].equals("-f") && !args[i+1].equals("-m")) && !args[i + 2].contains("names")){
+                maleNames.add(args[i+1]);
             }
 
         }
