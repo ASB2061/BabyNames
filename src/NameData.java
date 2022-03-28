@@ -24,9 +24,9 @@ public class NameData {
         setNameNumber(numberOfNames);
     }
     // Overloaded constructor for Find & Fetch
-    public NameData(String inputtedName){
+   /* public NameData(String inputtedName){
         setBabyName(inputtedName);
-    }
+    }*/
 
     public String toString(){
         //return //Integer.toString(rank) + "  " + babyName +  " " + Integer.toString(nameNumber);

@@ -61,20 +61,17 @@ public class DoublyLinkedList<NameData> {
 
     public void insertAlpha(NameData inputName){
         if (isEmpty()) {
-            Node<NameData> curr = addBetween(inputName, header, trailer);
+            addFirst(inputName);
             return;
         }
-        Node<NameData> curr = addBetween(inputName, header, header.getNext());
         try {
-            if (inputName.toString().compareTo(header.getNext().getElement().toString()) > 0) {
-                curr = addBetween(remove(curr), header.getNext(), header.getNext().getNext());
-            }
+            Node<NameData> curr = addBetween(inputName, header, header.getNext());
+            //Node<NameData> placeHolder;
             while (curr.getNext() != trailer) {
-                if (curr.getElement().toString().compareTo(curr.getNext().getElement().toString()) > 0) {
-                    curr = addBetween(remove(curr), curr.getNext(),curr.getNext().getNext());
+                if (inputName.toString().compareTo(curr.getNext().getElement().toString()) > 0) {
+                    curr = curr.getNext();
                 } else if (inputName.toString().compareTo(curr.getNext().getElement().toString()) < 0) {
-                    /*addBetween(inputName, curr, curr.getNext());
-                    remove(curr);*/
+                    addBetween(inputName, curr, curr.getNext());
                     break;
                 }
             }
@@ -84,38 +81,43 @@ public class DoublyLinkedList<NameData> {
     }
 
     public NameData fetch(String name){
-        Node<NameData> curr = addBetween(header.getNext().getElement(), header, header.getNext());
-        remove(curr.getNext());
-        if(name.compareTo(curr.getElement().toString()) == 0){
-            return curr.getElement();
-        }
-        while (curr.getNext() != trailer){
-            if(name.compareTo(curr.getNext().getElement().toString()) == 0){
-                return curr.getNext().getElement();
+        if (size > 0) {
+            Node<NameData> curr = header.getNext();
+            try {
+                while (curr != trailer) {
+                    if (curr.getElement().toString().equals(name)) {
+                        return curr.getElement();
+                    }
+                    curr = curr.getNext();
+                }
+            } catch (NullPointerException e) {
+                System.out.println("Name could not be retrieved.");
+                return null;
             }
-            curr = curr.getNext();
         }
         return null;
     }
 
     public int findPosition(String name){
-        Node<NameData> curr = addBetween(header.getNext().getElement() , header, header.getNext());
-        remove(curr.getNext());
-        int counter = 0;
-        try {
-            if (name.compareTo(curr.getElement().toString()) == 0) {
+        if (!isEmpty()) {
+            int counter = 1;
+            Node<NameData> curr = header.getNext();
+            if (curr.getElement().toString().equals(name)){
                 return counter;
             }
-            while (curr.getNext() != trailer) {
-                counter++;
-                if (name.compareTo(curr.getNext().getElement().toString()) == 0) {
-                    return counter + 1;
+            try {
+                while (curr.getNext() != null) {
+                    if (name.equals(curr.getNext().getElement().toString())) {
+                        return counter + 1;
+                    }
+                    curr = curr.getNext();
+                    counter +=1;
                 }
-                curr = curr.getNext();
+            } catch (NullPointerException e) {
+                return -1;
             }
-        } catch (NullPointerException e) {
-            return -1;
         }
+        else {return -1;}
         return -1;
     }
 
@@ -124,10 +126,10 @@ public class DoublyLinkedList<NameData> {
             return "List is Empty";
         }
         Node<NameData> curr = header.getNext();               // Start with the node after the header
-        StringBuilder str = new StringBuilder(curr.toString());                  // Using toString from the Node Class
+        StringBuilder str = new StringBuilder(curr.getElement().toString());                  // Using toString from the Node Class
         while (curr.getNext() != trailer){             // Keep hoping until the next node is the trailer
             curr = curr.getNext();
-            str.append(" -> ").append(curr.toString());      // Using toString from the Node Class
+            str.append(" -> ").append(curr.getElement().toString());      // Using toString from the Node Class
         }
         return str.toString();
     }
