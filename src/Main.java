@@ -13,31 +13,43 @@ import java.util.ArrayList;
  *
  */
 public class Main {
-    public static ArrayList<String> maleNames;
-    public static ArrayList<String> femaleNames;
-    public static ArrayList<String> fileNames;
 
-    public Main() throws IOException {
-    }
 
     public static void main(String[] args) throws IOException, CsvException {
         // Your main code goes here. Remember to create the NameData, Node and DoublyLinkedList classes in separate files
+        ArrayList<String> maleNames = new ArrayList<>();
+        ArrayList<String> femaleNames = new ArrayList<>();
+        ArrayList<String> fileNames = new ArrayList<>();
+
         int i = 0;
         while (i < args.length)  {
-            if (args[i].equals("-f") && (!args[i+1].equals("-f") && !args[i+1].equals("-m"))){
-                femaleNames.add(args[i+1]);
-                if (args[i + 2].contains("names")){
-                    fileNames.add(args[i + 2]);
-                    i += 2;
+            if (args[i].equals("-f")){
+                try {
+                    femaleNames.add(args[i + 1]);
+                    i+=2;
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("No more names in the command line argument.");
                 }
-
-
             }
-            else if (args[i].equals("-m") && (!args[i+1].equals("-f") && !args[i+1].equals("-m")) && !args[i + 2].contains("names")){
-                maleNames.add(args[i+1]);
+            else if (args[i].equals("-m")){
+                try {
+                    maleNames.add(args[i + 1]);
+                    i += 2;
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("No names left in the command line argument.");
+                }
             }
-
+            else if (args[i].contains("names")){
+                fileNames.add(args[i]);
+                i+=1;
+            }
         }
+
+        System.out.println(fileNames);
+        System.out.println(femaleNames);
+        System.out.println(maleNames);
+
+
         CSVReaderHeaderAware reader = new CSVReaderHeaderAware(new FileReader("names1990.csv"));
         ArrayList<String[]> theNames = new ArrayList<String[]>(reader.readAll());
         reader.close();
