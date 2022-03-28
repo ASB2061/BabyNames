@@ -35,9 +35,9 @@ public class Main {
         fileNames.add("names2007.csv");
         fileNames.add("test.csv");
 
-        /*System.out.println(fileNames);
-        System.out.println(femaleNames);
-        System.out.println(maleNames);*/
+        //System.out.println(fileNames);
+        //System.out.println(femaleNames);
+        //System.out.println(maleNames);
         int i = 0;
         while (i < args.length)  {
             if (args[i].equals("-f")){
@@ -64,19 +64,46 @@ public class Main {
         DoublyLinkedList<NameData> theMaleNames = new DoublyLinkedList<>();
         DoublyLinkedList<NameData> theFemaleNames = new DoublyLinkedList<>();
 
+        for (String file : fileNames){
+            CSVReader reader = new CSVReader(new FileReader(file));
+            ArrayList<String[]> theNames = new ArrayList<String[]>(reader.readAll());
+            int counter = 0;
+            for (String[] x : theNames) {
+                NameData newMaleName = new NameData(x[1], Integer.parseInt(x[2]));
+                NameData newFemaleName = new NameData(x[3], Integer.parseInt(x[4]));
 
-       CSVReader reader = new CSVReader(new FileReader("test.csv"));
-       ArrayList<String[]> theNames = new ArrayList<String[]>(reader.readAll());
-       int counter = 0;
-        for (String[] x : theNames) {
-            NameData newMaleName = new NameData(x[1], Integer.parseInt(x[2]));
-            System.out.println(counter + ", " +  newMaleName.toString());
-            theMaleNames.insertAlpha(newMaleName);
-            counter++;
+                if (theMaleNames.findPosition(x[1]) == -1 && theFemaleNames.findPosition(x[3]) == -1){
+                    theMaleNames.insertAlpha(newMaleName);
+                    theFemaleNames.insertAlpha(newFemaleName);
+                }
+                else if (theMaleNames.findPosition(x[1]) == -1 && theFemaleNames.findPosition(x[3]) != -1){
+                    theMaleNames.insertAlpha(newMaleName);
+                    theFemaleNames.fetch(x[3]).occurrenceIncrementUpdate(Integer.parseInt(x[4]));
+                }
+                else if (theFemaleNames.findPosition(x[3]) == -1 && theMaleNames.findPosition(x[1]) != -1){
+                    theFemaleNames.insertAlpha(newFemaleName);
+                    theMaleNames.fetch(x[1]).occurrenceIncrementUpdate(Integer.parseInt(x[2]));
+                }
+                else {
+                    //System.out.println(counter + ", " +  newMaleName.toString()+ ", " +  newFemaleName.toString());
+                    theMaleNames.insertAlpha(newMaleName);
+                    theFemaleNames.insertAlpha(newFemaleName);
+                }
+                counter++;
+            }
+            reader.close();
         }
+        //System.out.println(theMaleNames.toString() + "\n" + theFemaleNames.toString());
 
-        System.out.println(theMaleNames.toString());
-
+        //int counter = 0;
+        /*for (String[] x : theNames) {
+            NameData newMaleName = new NameData(x[1], Integer.parseInt(x[2]));
+            NameData newFemaleName = new NameData(x[3], Integer.parseInt(x[4]));
+            System.out.println(counter + ", " +  newMaleName.toString()+ ", " +  newFemaleName.toString());
+            theMaleNames.insertAlpha(newMaleName);
+            theFemaleNames.insertAlpha(newFemaleName);
+            counter++;
+        }*/
         /*for (String n : fileNames){
             CSVReader reader = new CSVReader(new FileReader(n));
             ArrayList<String[]> theNames = new ArrayList<String[]>(reader.readAll());
@@ -90,12 +117,6 @@ public class Main {
 
             reader.close();
         }*/
-
-
-
-
-
-
        // DoublyLinkedList maleNames = new DoublyLinkedList();
     }
 }

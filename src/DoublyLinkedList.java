@@ -84,9 +84,10 @@ public class DoublyLinkedList<NameData> {
     }
 
     public NameData fetch(String name){
-        Node<NameData> curr = addBetween(null, header, header.getNext());
-        if(name.compareTo(header.getNext().getElement().toString()) == 0){
-            return header.getNext().getElement();
+        Node<NameData> curr = addBetween(header.getNext().getElement(), header, header.getNext());
+        remove(curr.getNext());
+        if(name.compareTo(curr.getElement().toString()) == 0){
+            return curr.getElement();
         }
         while (curr.getNext() != trailer){
             if(name.compareTo(curr.getNext().getElement().toString()) == 0){
@@ -97,18 +98,23 @@ public class DoublyLinkedList<NameData> {
         return null;
     }
 
-    public int findPostion(String name){
-        Node<NameData> curr = addBetween(null, header, header.getNext());
+    public int findPosition(String name){
+        Node<NameData> curr = addBetween(header.getNext().getElement() , header, header.getNext());
+        remove(curr.getNext());
         int counter = 0;
-        if(name.compareTo(header.getNext().getElement().toString()) == 0){
-            return counter;
-        }
-        while (curr.getNext() != trailer){
-            counter++;
-            if(name.compareTo(curr.getNext().getElement().toString()) == 0){
-                return counter+1;
+        try {
+            if (name.compareTo(curr.getElement().toString()) == 0) {
+                return counter;
             }
-            curr = curr.getNext();
+            while (curr.getNext() != trailer) {
+                counter++;
+                if (name.compareTo(curr.getNext().getElement().toString()) == 0) {
+                    return counter + 1;
+                }
+                curr = curr.getNext();
+            }
+        } catch (NullPointerException e) {
+            return -1;
         }
         return -1;
     }
@@ -118,11 +124,11 @@ public class DoublyLinkedList<NameData> {
             return "List is Empty";
         }
         Node<NameData> curr = header.getNext();               // Start with the node after the header
-        String str = curr.toString();                  // Using toString from the Node Class
+        StringBuilder str = new StringBuilder(curr.toString());                  // Using toString from the Node Class
         while (curr.getNext() != trailer){             // Keep hoping until the next node is the trailer
             curr = curr.getNext();
-            str = str + " -> " + curr.toString();      // Using toString from the Node Class
+            str.append(" -> ").append(curr.toString());      // Using toString from the Node Class
         }
-        return str;
+        return str.toString();
     }
 }

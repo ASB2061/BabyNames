@@ -23,6 +23,10 @@ public class NameData {
         setBabyName(inputtedName);
         setNameNumber(numberOfNames);
     }
+    // Overloaded constructor for Find & Fetch
+    public NameData(String inputtedName){
+        setBabyName(inputtedName);
+    }
 
     public String toString(){
         //return //Integer.toString(rank) + "  " + babyName +  " " + Integer.toString(nameNumber);
@@ -32,7 +36,7 @@ public class NameData {
         return (this.equals(opposingNode));
     }
 
-    public void occurenceIncrementUpdate(int newOccurenceData){
-        nameNumber += newOccurenceData;
+    public void occurrenceIncrementUpdate(int newOccurrenceData){
+        nameNumber += newOccurrenceData;
     }
 }
