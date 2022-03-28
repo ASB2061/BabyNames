@@ -12,4 +12,5 @@ public class Node<NameData> {
     public Node<NameData> getNext() {return next;}
     public void setPrev(Node<NameData> p) {prev = p;}
     public void setNext(Node<NameData> n) {next = n;}
+    public String toString(){return element.toString();}
 }

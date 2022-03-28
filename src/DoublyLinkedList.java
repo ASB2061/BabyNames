@@ -60,21 +60,26 @@ public class DoublyLinkedList<NameData> {
     }
 
     public void insertAlpha(NameData inputName){
-        if (isEmpty()) addFirst(inputName);
-        Node<NameData> curr = addBetween(null, header, header.getNext());
-        if(inputName.toString().compareTo(header.getNext().getElement().toString()) > 0){
-            curr = curr.getNext();
+        if (isEmpty()) {
+            Node<NameData> curr = addBetween(inputName, header, trailer);
+            return;
         }
-        while (curr.getNext() != trailer){
-            if(inputName.toString().compareTo(curr.getNext().getElement().toString()) > 0){
-                curr = curr.getNext();
-                break;
+        Node<NameData> curr = addBetween(inputName, header, header.getNext());
+        try {
+            if (inputName.toString().compareTo(header.getNext().getElement().toString()) > 0) {
+                curr = addBetween(remove(curr), header.getNext(), header.getNext().getNext());
             }
-            else if (inputName.toString().compareTo(curr.getNext().getElement().toString()) < 0){
-                addBetween(inputName, curr, curr.getNext());
-                remove(curr);
-                break;
+            while (curr.getNext() != trailer) {
+                if (curr.getElement().toString().compareTo(curr.getNext().getElement().toString()) > 0) {
+                    curr = addBetween(remove(curr), curr.getNext(),curr.getNext().getNext());
+                } else if (inputName.toString().compareTo(curr.getNext().getElement().toString()) < 0) {
+                    /*addBetween(inputName, curr, curr.getNext());
+                    remove(curr);*/
+                    break;
+                }
             }
+        } catch (NullPointerException e){
+            System.out.println("Node is null and cannot perform operation.");
         }
     }
 
