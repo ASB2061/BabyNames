@@ -33,6 +33,7 @@ public class Main {
         maleNames.add("Michael");
         maleNames.add("Benjamin");
         maleNames.add("Matthew");
+        maleNames.add("Adiel");
 
         femaleNames.add("Catherine");
         femaleNames.add("Elizabeth");
@@ -147,7 +148,7 @@ public class Main {
         try {
             for (String maleName : maleNames) {
                 if (theMaleNames.fetch(maleName) == null){
-                    System.out.println("Name " + maleName + " not found.");
+                    System.out.println("Name " + maleName + " not found. \n");
                     continue;
                 }
                 System.out.println(maleName + ": " + theMaleNames.fetch(maleName).getNameNumberNumber() + " occurrences in " + totalMaleNames + " names (" + (theMaleNames.fetch(maleName).getNameNumberNumber() / totalMaleNames) + "%)");
@@ -156,7 +157,7 @@ public class Main {
 
             for (String femaleName : femaleNames) {
                 if (theFemaleNames.fetch(femaleName) == null){
-                    System.out.println("Name " + femaleName + " not found.");
+                    System.out.println("Name " + femaleName + " not found. \n");
                     continue;
                 }
                 System.out.println(femaleName + ": " + theFemaleNames.fetch(femaleName).getNameNumberNumber() + " occurrences in " + totalFemaleNames + " names (" + (theFemaleNames.fetch(femaleName).getNameNumberNumber() / totalFemaleNames) + "%)");
