@@ -2,9 +2,9 @@
  *
  */
 
-import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.exceptions.CsvException;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +21,17 @@ public class Main {
         ArrayList<String> femaleNames = new ArrayList<>();
         ArrayList<String> fileNames = new ArrayList<>();
 
+        maleNames.add("Michael");
+        maleNames.add("Benjamin");
+        maleNames.add("Matthew");
+
+        femaleNames.add("Catherine");
+        femaleNames.add("Elizabeth");
+        femaleNames.add("Sarah");
+
+        fileNames.add("names1995.csv");
+        fileNames.add("names1996.csv");
+        fileNames.add("names2007.csv");
         int i = 0;
         while (i < args.length)  {
             if (args[i].equals("-f")){
