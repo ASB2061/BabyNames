@@ -142,11 +142,11 @@ public class Main {
             reader.close();
         }
 
-        //System.out.println(System.out.println(String.format("%.6g%n", fraction));
+        // Statistical Output
 
         try {
             for (String maleName : maleNames) { // first we iterate through the male names inputted through the args array.
-                if (theMaleNames.fetch(maleName) == null){ // if the name is not found
+                if (theMaleNames.fetch(maleName) == null){ // if the name is not found in the linked list
                     System.out.println("Name " + maleName + " not found. \n");
                     continue; // skip to the next iteration
                 }
