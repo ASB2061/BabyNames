@@ -4,11 +4,14 @@
  * can input into the code using the terminal or for intellij, by modifying the run configuration for Main.java since it
  * would take too long to compile every file needed to run this program.
  *
+ * NOTE: There may be some false positive errors in Main.java specifically with methods used from DoublyLinkedList.java.
+ * These can be ignored.
+ *
  * @Author: Adiel Benisty
  * @version: April 1, 2022
- *
  * */
 
+// We import the necessary methods to read .csv files.
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.exceptions.CsvException;
@@ -26,7 +29,15 @@ import java.util.ArrayList;
 public class Main {
 
     /***
-     *
+     * The main method runs everything detailed in the description of the class Main. First, array lists for the inputs
+     * are created. So maleNames, femaleNames and fileNames store the data given in parameter args. Next, doubles that
+     * track the total male and female names are initialized and doublylinkedlists are created to store all the male
+     * and female names. Next, a while loop is used to iterate through the array for args. Names are added to maleNames
+     * and femaleNames and file names are added to fileNames. If fileNames or maleNames and femaleNames are empty then
+     * the code throws an illegalArgument Exception, since there are either no names to use for searching or no years to
+     * search through. Next the year csv files are iterated through by for loop. In this file, nodes are added to the
+     * doubly linked lists each storing a name and the number of occurrences of that name. If a name comes up more than
+     * once, then the number of occurrences is updated for that Node.
      * @param args
      * @throws IOException
      * @throws CsvException
