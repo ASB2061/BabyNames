@@ -4,7 +4,7 @@
  * can input into the code using the terminal or for intellij, by modifying the run configuration for Main.java since it
  * would take too long to compile every file needed to run this program.
  *
- * NOTE: There may be some false positive errors in Main.java specifically with methods used from DoublyLinkedList.java.
+ * NOTE: There may be some false positive errors in Main.java or DoublyLinkedList.java.
  * These can be ignored.
  *
  * @Author: Adiel Benisty
@@ -37,77 +37,99 @@ public class Main {
      * the code throws an illegalArgument Exception, since there are either no names to use for searching or no years to
      * search through. Next the year csv files are iterated through by for loop. In this file, nodes are added to the
      * doubly linked lists each storing a name and the number of occurrences of that name. If a name comes up more than
-     * once, then the number of occurrences is updated for that Node.
+     * once, then the number of occurrences is updated for that Node. Once all of the files are read, the statistics for
+     * the names in args are printed by fetching the node storing that data in a print statement. If there is no data
+     * for the name, then we return that the name could not be retrieved.
      * @param args
      * @throws IOException
      * @throws CsvException
      */
     public static void main(String[] args) throws IOException, CsvException {
         // Your main code goes here. Remember to create the NameData, Node and DoublyLinkedList classes in separate files
+
+        // ArrayLists are created which will store the names given by args and fileNames given by args.
         ArrayList<String> maleNames = new ArrayList<>();
         ArrayList<String> femaleNames = new ArrayList<>();
         ArrayList<String> fileNames = new ArrayList<>();
 
+        // tracks total names for calculating statistics
         double totalMaleNames = 0;
         double totalFemaleNames = 0;
-        int i = 0;
 
+        int i = 0; // for iterating through args
+
+        // stores all the names searched through.
         DoublyLinkedList<NameData> theMaleNames = new DoublyLinkedList<>();
         DoublyLinkedList<NameData> theFemaleNames = new DoublyLinkedList<>();
 
 
-        while (i < args.length)  {
-            if (args[i].equals("-f")){
+        while (i < args.length)  { // we iterate through args
+            if (args[i].equals("-f")){ // if it is '-f' then we can add the next element in args to female names
                 try {
                     femaleNames.add(args[i + 1]);
                     i+=2;
-                } catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e){ // if args[i + 1] is out of bounds then we throw an exception
                     System.out.println("No more names in the command line argument.");
                 }
             }
-            else if (args[i].equals("-m")){
+            else if (args[i].equals("-m")){ // if it is '-m' then we can add the next element in args to male names
                 try {
                     maleNames.add(args[i + 1]);
                     i += 2;
-                } catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e){ // if args[i + 1] is out of bounds then we throw an exception
                     System.out.println("No names left in the command line argument.");
                 }
             }
-            else if (args[i].contains("names")){
+            else if (args[i].contains("names")){ // if args[i] contains the substring "names" then it will store a year
+                // file since they have the format namesXXXX.csv
                 fileNames.add(args[i]);
                 i+=1;
             }
         }
 
-        if (fileNames.isEmpty()){
-            throw new IllegalArgumentException ("No data set to search on!");
+        // These if-else statements verify that there are names and years to search through. Otherwise there is no reason
+        // for the code to run.
+        if (fileNames.isEmpty()){ throw new IllegalArgumentException ("No data set to search on!"); }
+        else if (maleNames.isEmpty() && femaleNames.isEmpty()) {throw new IllegalArgumentException("No names to analyze!");}
 
-        }
 
-        // Testing Code
+        // This for loop iterates through all the fileNames given in args.
         for (String file : fileNames) {
-            CSVReader reader = new CSVReader((new FileReader(file)));
+            CSVReader reader = new CSVReader((new FileReader(file))); // each time we create a new arraylist to temporarily
+            // store the data held in the .csv files.
             ArrayList<String[]> theNames = new ArrayList<String[]>(reader.readAll());
 
-            for (String[] x : theNames) {
+            for (String[] x : theNames) { // Next we iterate through the .csv file by the arraylist.
+                // We create a new NameData for the male and female Names to prepare to add them to the doublyLinkedLists
+                // holding maleNames and femaleNames.
                 NameData newMaleName = new NameData(x[1], Integer.parseInt(x[2]));
                 NameData newFemaleName = new NameData(x[3], Integer.parseInt(x[4]));
+
+                // We increase the total names for male and female names for the calculations at the end.
                 totalMaleNames += Integer.parseInt(x[2]);
                 totalFemaleNames += Integer.parseInt(x[4]);
-                if (theMaleNames.findPosition(x[1]) == -1 && theFemaleNames.findPosition(x[3]) == -1) {
+
+                // Finally, we have four if-else statements, since there are four cases.
+                if (theMaleNames.findPosition(x[1]) == -1 && theFemaleNames.findPosition(x[3]) == -1) { // the first case
+                    // is that the new names are new for both linkedlists
                     theMaleNames.insertAlpha(newMaleName);
                     theFemaleNames.insertAlpha(newFemaleName);
-                } else if (theMaleNames.findPosition(x[1]) == -1 && theFemaleNames.findPosition(x[3]) != -1) {
+                } else if (theMaleNames.findPosition(x[1]) == -1 && theFemaleNames.findPosition(x[3]) != -1) { // the second
+                    // case is that the male name is new, but the female name is not, then we update the female name node
+                    // and we add the new male nae.
                     theMaleNames.insertAlpha(newMaleName);
                     theFemaleNames.fetch(x[3]).occurrenceIncrementUpdate(Integer.parseInt(x[4]));
                     //System.out.println("success");
 
-                } else if (theFemaleNames.findPosition(x[3]) == -1 && theMaleNames.findPosition(x[1]) != -1) {
+                } else if (theFemaleNames.findPosition(x[3]) == -1 && theMaleNames.findPosition(x[1]) != -1) { // the third
+                    // case is that the female name is new, but the male name is not. Then we update the male name node
+                    // and add a new female name node.
                     theMaleNames.fetch(x[1]).occurrenceIncrementUpdate(Integer.parseInt(x[2]));
                     theFemaleNames.insertAlpha(newFemaleName);
 
                 } else if (theMaleNames.findPosition(x[1]) != -1 && theFemaleNames.findPosition(x[3]) != -1) {
-                    //System.out.println(counter + ", " +  newMaleName.toString()+ ", " +  newFemaleName.toString());
+                    // The fourth case is that both names are not new to the doublylinkedlists. Then we just update the
+                    // occurrences for both of them.
                     theMaleNames.fetch(x[1]).occurrenceIncrementUpdate(Integer.parseInt(x[2]));
                     theFemaleNames.fetch(x[3]).occurrenceIncrementUpdate(Integer.parseInt(x[4]));
                 }
