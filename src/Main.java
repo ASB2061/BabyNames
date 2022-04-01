@@ -1,6 +1,13 @@
 /***
+ * Lab 3 BabyNames: This lab allows users to search for the occurrence of baby names between 1990 and 2017. Multiple
+ * data types are used including ArrayLists, doubles, ints and doubly linked lists to make all the calculations. The user
+ * can input into the code using the terminal or for intellij, by modifying the run configuration for Main.java since it
+ * would take too long to compile every file needed to run this program.
  *
- */
+ * @Author: Adiel Benisty
+ * @version: April 1, 2022
+ *
+ * */
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderHeaderAware;
@@ -11,11 +18,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /***
- *
+ * The main class runs the code of DoublyLinkedList, Node and NameData through the main method. It receives array args
+ * which it iterates through. Then it reads through any files that were named in args, adding every name to either the
+ * male or female doubly linked lists. Finally, it prints statistics of the names. Like how many occurrences there were
+ * of the name in the years provided and the percentage of the occurrence of names with respect to the gender.
  */
 public class Main {
 
-
+    /***
+     *
+     * @param args
+     * @throws IOException
+     * @throws CsvException
+     */
     public static void main(String[] args) throws IOException, CsvException {
         // Your main code goes here. Remember to create the NameData, Node and DoublyLinkedList classes in separate files
         ArrayList<String> maleNames = new ArrayList<>();
@@ -29,24 +44,6 @@ public class Main {
         DoublyLinkedList<NameData> theMaleNames = new DoublyLinkedList<>();
         DoublyLinkedList<NameData> theFemaleNames = new DoublyLinkedList<>();
 
-        // Some Testing
-        maleNames.add("Michael");
-        maleNames.add("Benjamin");
-        maleNames.add("Matthew");
-        maleNames.add("Adiel");
-
-        femaleNames.add("Catherine");
-        femaleNames.add("Elizabeth");
-        femaleNames.add("Sarah");
-
-        fileNames.add("names1995.csv");
-        fileNames.add("names1996.csv");
-        fileNames.add("names2007.csv");
-        fileNames.add("test.csv");
-
-        //System.out.println(fileNames);
-        //System.out.println(femaleNames);
-        //System.out.println(maleNames);
 
         while (i < args.length)  {
             if (args[i].equals("-f")){
@@ -71,6 +68,10 @@ public class Main {
             }
         }
 
+        if (fileNames.isEmpty()){
+            throw new IllegalArgumentException ("No data set to search on!");
+
+        }
 
         // Testing Code
         for (String file : fileNames) {
@@ -104,12 +105,29 @@ public class Main {
             reader.close();
         }
 
-        //System.out.println(theMaleNames.toString() + "\n" + theFemaleNames.toString());
 
-        //System.out.println(theMaleNames.findPosition("Adil"));
-        //System.out.println(theMaleNames.fetch("Michael").getNameNumberNumber());
-        //theMaleNames.fetch("Michael").occurrenceIncrementUpdate(1500);
-        //System.out.println(theMaleNames.fetch("Michael").getNameNumberNumber());
+        // Output of Statistics
+        try {
+            for (String maleName : maleNames) {
+                if (theMaleNames.fetch(maleName) == null){
+                    System.out.println("Name " + maleName + " not found. \n");
+                    continue;
+                }
+                System.out.println(maleName + ": " + theMaleNames.fetch(maleName).getNameNumberNumber() + " occurrences in " + totalMaleNames + " names (" + (theMaleNames.fetch(maleName).getNameNumberNumber() / totalMaleNames) + "%)");
+                System.out.println("Position of " + maleName + " in the Linked List: " + theMaleNames.findPosition(maleName) + "\n");
+            }
+
+            for (String femaleName : femaleNames) {
+                if (theFemaleNames.fetch(femaleName) == null){
+                    System.out.println("Name " + femaleName + " not found. \n");
+                    continue;
+                }
+                System.out.println(femaleName + ": " + theFemaleNames.fetch(femaleName).getNameNumberNumber() + " occurrences in " + totalFemaleNames + " names (" + (theFemaleNames.fetch(femaleName).getNameNumberNumber() / totalFemaleNames) + "%)");
+                System.out.println("Position of " + femaleName + " in the Linked List: " + theFemaleNames.findPosition(femaleName) + "\n");
+            }
+        } catch (ArithmeticException e){
+            System.out.println("Division by zero.");
+        }
 
         /*
         for (String file : fileNames){
@@ -144,30 +162,6 @@ public class Main {
         }
          */
 
-        // Output of Statistics
-        try {
-            for (String maleName : maleNames) {
-                if (theMaleNames.fetch(maleName) == null){
-                    System.out.println("Name " + maleName + " not found. \n");
-                    continue;
-                }
-                System.out.println(maleName + ": " + theMaleNames.fetch(maleName).getNameNumberNumber() + " occurrences in " + totalMaleNames + " names (" + (theMaleNames.fetch(maleName).getNameNumberNumber() / totalMaleNames) + "%)");
-                System.out.println("Position of " + maleName + " in the Linked List: " + theMaleNames.findPosition(maleName) + "\n");
-            }
-
-            for (String femaleName : femaleNames) {
-                if (theFemaleNames.fetch(femaleName) == null){
-                    System.out.println("Name " + femaleName + " not found. \n");
-                    continue;
-                }
-                System.out.println(femaleName + ": " + theFemaleNames.fetch(femaleName).getNameNumberNumber() + " occurrences in " + totalFemaleNames + " names (" + (theFemaleNames.fetch(femaleName).getNameNumberNumber() / totalFemaleNames) + "%)");
-                System.out.println("Position of " + femaleName + " in the Linked List: " + theFemaleNames.findPosition(femaleName) + "\n");
-            }
-        } catch (ArithmeticException e){
-            System.out.println("Division by zero.");
-        }
-
-
 
         //int counter = 0;
         /*for (String[] x : theNames) {
@@ -192,5 +186,33 @@ public class Main {
             reader.close();
         }*/
        // DoublyLinkedList maleNames = new DoublyLinkedList();
+
+        // Some Testing
+       /* maleNames.add("Michael");
+        maleNames.add("Benjamin");
+        maleNames.add("Matthew");
+        maleNames.add("Adiel");
+
+        femaleNames.add("Catherine");
+        femaleNames.add("Elizabeth");
+        femaleNames.add("Sarah");
+
+        fileNames.add("names1995.csv");
+        fileNames.add("names1996.csv");
+        fileNames.add("names2007.csv");
+        fileNames.add("test.csv"); */
+
+        //System.out.println(fileNames);
+        //System.out.println(femaleNames);
+        //System.out.println(maleNames);
+
+        //System.out.println(theMaleNames.toString() + "\n" + theFemaleNames.toString());
+
+        //System.out.println(theMaleNames.findPosition("Adil"));
+        //System.out.println(theMaleNames.fetch("Michael").getNameNumberNumber());
+        //theMaleNames.fetch("Michael").occurrenceIncrementUpdate(1500);
+        //System.out.println(theMaleNames.fetch("Michael").getNameNumberNumber());
+
+
     }
 }
