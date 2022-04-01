@@ -1,19 +1,28 @@
+/***
+ * The DoublyLinkedList class is the classical data structure used for this lab in which each node or element in the structure
+ * can call the element before or after it. This class uses methods from Node.java to execute most of its own methods.
+ * The most prominent of which are getNext, getPrev
+ *
+ * @param <NameData> This list uses the specific parameter of NameData which holds a babyName and the number of occurences.
+ */
+
 public class DoublyLinkedList<NameData> {
 
-    private Node<NameData> header;
-    private Node<NameData> trailer;
+    private Node<NameData> header; // first node in the linked list which should always be null.
+    private Node<NameData> trailer; // last node in the linked list which should also always be null.
     private int size = 0;
 
-    public DoublyLinkedList(){
+    public DoublyLinkedList(){ // constructor for making a new doubly linked list which is empty. Creates a header
+        // and trailer.
         header = new Node<>(null, null, null);
         trailer = new Node<>(null,header,null);
         header.setNext(trailer);
     }
 
-    public int getSize() {return size;}
-    public boolean isEmpty() {return size == 0;}
+    public int getSize() {return size;} // returns the size of the doublylinkedlist
+    public boolean isEmpty() {return size == 0;} // if the list is empty
 
-    public NameData first(){
+    public NameData first(){ // returns the NameData of the first element in the doubly linked list.
         if (isEmpty()) return null;
         return header.getNext().getElement();
     }
@@ -21,7 +30,7 @@ public class DoublyLinkedList<NameData> {
     public NameData last() {
         if(isEmpty()) return null;
         return trailer.getPrev().getElement();
-    }
+    } // returns the NameData of the last element in the doublyLinkedList.
 
     public void addFirst(NameData e){
         addBetween(e, header, header.getNext());

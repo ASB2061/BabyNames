@@ -138,6 +138,8 @@ public class Main {
             reader.close();
         }
 
+        //System.out.println(System.out.println(String.format("%.6g%n", fraction));
+
 
         // Output of Statistics
         try {
@@ -147,7 +149,10 @@ public class Main {
                     continue; // skip to the next iteration
                 }
                 // Otherwise, we print the name and its number of occurrences and its position in the linked list.
-                System.out.println(maleName + ": " + theMaleNames.fetch(maleName).getNameNumberNumber() + " occurrences in " + totalMaleNames + " names (" + (theMaleNames.fetch(maleName).getNameNumberNumber() / totalMaleNames) + "%)");
+                String statisticMaleNames = String.format("%.6g%n",(theMaleNames.fetch(maleName).getNameNumberNumber() / totalMaleNames)); // used to get rid of a new line character
+                // in string.format
+
+                System.out.println(maleName + ": " + theMaleNames.fetch(maleName).getNameNumberNumber() + " occurrences in " + totalMaleNames + " names (" + statisticMaleNames.substring(0,statisticMaleNames.length() - 2) + "%)");
                 System.out.println("Position of " + maleName + " in the Linked List: " + theMaleNames.findPosition(maleName) + "\n");
             }
 
@@ -157,7 +162,10 @@ public class Main {
                     continue;
                 }
                 // Otherwise, we print the name and its number of occurrences and its position in the linked list.
-                System.out.println(femaleName + ": " + theFemaleNames.fetch(femaleName).getNameNumberNumber() + " occurrences in " + totalFemaleNames + " names (" + (theFemaleNames.fetch(femaleName).getNameNumberNumber() / totalFemaleNames) + "%)");
+                String statisticFemaleNames = String.format("%.6g%n",theFemaleNames.fetch(femaleName).getNameNumberNumber() / totalFemaleNames);
+                // also used to get rid of a new line character in string.format
+
+                System.out.println(femaleName + ": " + theFemaleNames.fetch(femaleName).getNameNumberNumber() + " occurrences in " + totalFemaleNames + " names (" + statisticFemaleNames.substring(0, statisticFemaleNames.length()-2) + "%)");
                 System.out.println("Position of " + femaleName + " in the Linked List: " + theFemaleNames.findPosition(femaleName) + "\n");
             }
         } catch (ArithmeticException e){ // if somehow there is an issue where total occurrences is 0.
