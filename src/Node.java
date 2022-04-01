@@ -1,12 +1,19 @@
+/***
+ * The core structure used for the DoublyLinkedList class. This serves as a reference to name data class.
+ * @param <NameData>
+ */
+
 public class Node<NameData> {
-    private NameData element;
-    private Node<NameData> prev;
-    private Node<NameData> next;
-    public Node(NameData e, Node<NameData> p, Node<NameData> n){
-        element = e;
-        prev = p;
-        next = n;
+    private NameData element; // the actual element that the node is referencing
+    private Node<NameData> prev; // the node that is before the current node
+    private Node<NameData> next; // the node that is after the current node
+    public Node(NameData e, Node<NameData> p, Node<NameData> n){ // constructor method for node
+        element = e; // set the name data
+        prev = p; // set the previous node
+        next = n; // set the node coming after
     }
+
+    // These are all self-explanatory.
     public NameData getElement(){return element;}
     public Node<NameData> getPrev() {return prev;}
     public Node<NameData> getNext() {return next;}
