@@ -1,7 +1,7 @@
 /***
  * The DoublyLinkedList class is the classical data structure used for this lab in which each node or element in the structure
  * can call the element before or after it. This class uses methods from Node.java to execute most of its own methods.
- * The most prominent of which are getNext, getPrev
+ *
  *
  * @param <NameData> This list uses the specific parameter of NameData which holds a babyName and the number of occurences.
  */
@@ -32,31 +32,32 @@ public class DoublyLinkedList<NameData> {
         return trailer.getPrev().getElement();
     } // returns the NameData of the last element in the doublyLinkedList.
 
-    public void addFirst(NameData e){
+    public void addFirst(NameData e){ // If we want to add a NameData at the front of the list
         addBetween(e, header, header.getNext());
     }
 
-    public void addLast(NameData e){
+    public void addLast(NameData e){ // If we want to add a NameData at the end of the list
         addBetween(e, trailer.getPrev(), trailer);
     }
 
     public NameData removeFirst(){
         if (isEmpty()) return null;
         return remove(header.getNext());
-    }
+    } // If we want to remove the first node in the list
 
     public NameData removeLast() {
         if (isEmpty()) return null;
         return remove(trailer.getPrev());
-    }
+    } // If we want to remove the last node in the list.
 
     private Node<NameData> addBetween(NameData e, Node<NameData> predecessor, Node<NameData> successor){
+        // In order to add between two nodes, we need to be given what nodes to add between and the NameData for the new node
         // create and link a new node
-        Node<NameData> newest = new Node<>(e, predecessor, successor);
-        predecessor.setNext(newest);
-        successor.setPrev(newest);
-        size++;
-        return newest;
+        Node<NameData> newest = new Node<>(e, predecessor, successor); // we create a new node linking to the NameData
+        predecessor.setNext(newest); // the new node becomes the predecessor's new next
+        successor.setPrev(newest); // the new node becomes the successor's new previous
+        size++; // increase the size of the list
+        return newest; // also return the node newest linking to NameData e
     }
 
     private NameData remove(Node<NameData> node){
