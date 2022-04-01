@@ -1,5 +1,7 @@
 /***
- * The core structure used for the DoublyLinkedList class. This serves as a reference to name data class.
+ * The core structure used for the DoublyLinkedList class. This class uses generics and is a helper class to DoublyLinked
+ * List.java
+ *
  * @param <E>
  */
 

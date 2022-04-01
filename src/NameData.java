@@ -1,5 +1,6 @@
 /***
- *
+ *This class serves as the datatype for the Node class. The two main fields are the babyName which is a string and the
+ * nameNumber which is the total number of occurrences of that name.
  */
 
 public class NameData implements Comparable<NameData>{
@@ -24,14 +25,17 @@ public class NameData implements Comparable<NameData>{
     @Override
     public String toString(){ // simply returns the babyName for toString, since this is used for comparing
         return getBabyName();
-    }
+    } // if we want to compare NameData types or call the string, it
+    // should return the babyname.
 
+    // This is a compare method for NameData. It compares the babynames by alphabetical order
     @Override
     public int compareTo(NameData opposingNode){ // compares the babynames for ordering the names alphabetically.
         return this.getBabyName().compareTo(opposingNode.getBabyName());
         // return Integer.compare(this.getBabyName().compareTo(opposingNode.getBabyName()), 0);
     }
 
+    // This method updates the nameNumber of a NameData when that NameData already appears in the DoublyLinkedList
     public void occurrenceIncrementUpdate(int newOccurrenceData){ // For updating the occurrence count if there is new data
         nameNumber += newOccurrenceData;
     }

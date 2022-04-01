@@ -1,9 +1,10 @@
 /***
  * The DoublyLinkedList class is the classical data structure used for this lab in which each node or element in the structure
  * can call the element before or after it. This class uses methods from Node.java to execute most of its own methods.
+ * There are some special methods for this lab like insertAlpha which inserts nodes in alphabetical order or findPosition
+ * which locates the position of a node.
  *
- *
- * @param <E> This list uses the specific parameter of NameData which holds a babyName and the number of occurences.
+ * @param <E> This parameter is generic.
  */
 
 public class DoublyLinkedList<E extends Comparable<E>>{
@@ -70,17 +71,13 @@ public class DoublyLinkedList<E extends Comparable<E>>{
         return node.getElement();
     }
 
-    public void insertAlpha(E inputName){ // This method inserts name data in alphabetical order
-
-        if (isEmpty()) { // obviously if the list is empty we add it in the front.
-            addFirst(inputName);
-            return;
-        }
+    // This method inserts the nodes in alphabetical order.
+    public void insertAlpha(E inputName){
         try {
             Node<E> curr = header.getNext(); // we create a node that is header.getNext() to traverse the linked list
             while (curr != trailer) {
                 if (inputName.compareTo(curr.getElement()) == 0) { // we first check if the node is equal
-                    System.out.println("element is already in list");
+                    // System.out.println("element is already in list");
                     return;
                 } else if (inputName.compareTo(curr.getElement()) < 0) { // if the compareTo
                     // method returns something less than 0, then we can add a new node
@@ -96,55 +93,42 @@ public class DoublyLinkedList<E extends Comparable<E>>{
         } catch (NullPointerException e){
             System.out.println("Node is null and cannot perform operation.");
         }
-
-
     }
 
-    public E fetch(String name){ // Retrieves the NameData
-        if (size > 0) {
-            Node<E> curr = header.getNext(); // we set curr as a node to travel through the list.
-            try {
-                while (curr != null) {
-                    if (curr.getElement().toString().equals(name)) { // if the strings are equal, then we can return the
-                        // name data.
-                        return curr.getElement();
-                    }
-                    curr = curr.getNext(); // set current to the next one if it is not found.
+    // Retrieves the NameData connected with a name.
+    public E fetch(String name){
+        Node<E> curr = header.getNext(); // we set curr as a node to travel through the list.
+        try {
+            while (curr != trailer) {
+                if (curr.getElement().toString().equals(name)) { // if the strings are equal, then we can return the
+                    // name data.
+                    return curr.getElement();
                 }
-            } catch (NullPointerException e) {
-                System.out.println("Name could not be retrieved.");
-                return null; // had to write this b/c intellij was being fidgety about null
+                curr = curr.getNext(); // set current to the next one if it is not found.
             }
+        } catch (NullPointerException e) {
+            System.out.println(name + " could not be retrieved.");
         }
-        return null; // if the list is empty, return null.
+        return null;
     }
 
+    // Finds the position of a name in the DoublyLinkedList of all the names searched
     public int findPosition(String name){
-        if (!isEmpty()) { // if the list is not empty
-            int counter = 1; // tracks the position of the node in the list.
-            Node<E> curr = header.getNext(); // use curr as the node to traverse the doubly linked list
-            if (curr.getElement().toString().equals(name)){ // if the string is equal to the first node, then just return one, otherwise we
-                // loop through the rest of the list.
-                return 1;
-            }
-            try { // otherwise we must loop through the rest of the list
-                while (curr.getNext() != null) { // when curr.getNext() is null then we have reached the trailer
-                    if (name.equals(curr.getNext().getElement().toString())) { // since we are comparing the name to the
-                        // node after the current node we will add one to the counter if they are equal.
-                        return counter + 1;
-                    }
-                    curr = curr.getNext(); // set the node equal to the next node if they are not equal
-                    counter++; // counter will also increment
+        if (!isEmpty()){ // if the list is not empty
+            Node<E> curr = header.getNext(); // use curr to traverse the list
+            int counter = 1; // to return the position of the node
+            while (curr != trailer){ // when curr reaches the end, we stop
+                if (curr.getElement().toString().equals(name)){
+                    return counter;
                 }
-            } catch (NullPointerException e) { // This had to be written for intellij to stop being finicky
-                return -1;
+                counter++; // increase if it is not equal
+                curr = curr.getNext(); // make current equal to the next element
             }
         }
-        else {return -1;}
-        return -1;
-        // the reason there are so many return -1;s is b/c of intellij's weird code checker.
+        return -1; // if we never return counter, then the only other option is -1
     }
 
+    // Turns the whole doublyLinked-list into a long string connected by arrows.
     @Override
     public String toString(){
         if (isEmpty()){
