@@ -141,24 +141,26 @@ public class Main {
 
         // Output of Statistics
         try {
-            for (String maleName : maleNames) {
-                if (theMaleNames.fetch(maleName) == null){
+            for (String maleName : maleNames) { // first we iterate through the male names inputted through the args array.
+                if (theMaleNames.fetch(maleName) == null){ // if the name is not found
                     System.out.println("Name " + maleName + " not found. \n");
-                    continue;
+                    continue; // skip to the next iteration
                 }
+                // Otherwise, we print the name and its number of occurrences and its position in the linked list.
                 System.out.println(maleName + ": " + theMaleNames.fetch(maleName).getNameNumberNumber() + " occurrences in " + totalMaleNames + " names (" + (theMaleNames.fetch(maleName).getNameNumberNumber() / totalMaleNames) + "%)");
                 System.out.println("Position of " + maleName + " in the Linked List: " + theMaleNames.findPosition(maleName) + "\n");
             }
 
-            for (String femaleName : femaleNames) {
-                if (theFemaleNames.fetch(femaleName) == null){
+            for (String femaleName : femaleNames) { // we iterate through the female names inputted through the args array
+                if (theFemaleNames.fetch(femaleName) == null){ // if the name is not found.
                     System.out.println("Name " + femaleName + " not found. \n");
                     continue;
                 }
+                // Otherwise, we print the name and its number of occurrences and its position in the linked list.
                 System.out.println(femaleName + ": " + theFemaleNames.fetch(femaleName).getNameNumberNumber() + " occurrences in " + totalFemaleNames + " names (" + (theFemaleNames.fetch(femaleName).getNameNumberNumber() / totalFemaleNames) + "%)");
                 System.out.println("Position of " + femaleName + " in the Linked List: " + theFemaleNames.findPosition(femaleName) + "\n");
             }
-        } catch (ArithmeticException e){
+        } catch (ArithmeticException e){ // if somehow there is an issue where total occurrences is 0.
             System.out.println("Division by zero.");
         }
 
