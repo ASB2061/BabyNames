@@ -18,7 +18,9 @@ import com.opencsv.exceptions.CsvException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /***
  * The main class runs the code of DoublyLinkedList, Node and NameData through the main method. It receives array args
@@ -48,21 +50,41 @@ public class Main {
         // Your main code goes here. Remember to create the NameData, Node and DoublyLinkedList classes in separate files
 
         // ArrayLists are created which will store the names given by args and fileNames given by args.
-        ArrayList<String> maleNames = new ArrayList<>();
-        ArrayList<String> femaleNames = new ArrayList<>();
-        ArrayList<String> fileNames = new ArrayList<>();
+        //ArrayList<String> maleNames = new ArrayList<>();
+        //ArrayList<String> femaleNames = new ArrayList<>();
+        //ArrayList<String> fileNames = new ArrayList<>();
 
         // tracks total names for calculating statistics
-        double totalMaleNames = 0;
-        double totalFemaleNames = 0;
+        //double totalMaleNames = 0;
+        //double totalFemaleNames = 0;
 
-        int i = 0; // for iterating through args
+        //int i = 0; // for iterating through args
 
         // stores all the names searched through.
-        DoublyLinkedList<NameData> theMaleNames = new DoublyLinkedList<>();
-        DoublyLinkedList<NameData> theFemaleNames = new DoublyLinkedList<>();
+
+        DoublyLinkedList<NameData> newMaleNamesList = new DoublyLinkedList<>();
+        String[] cars = {"BMW", "Mazda", "Mercedes", "Jaguar", "McLaren", "Ferrari", "Mini", "Nissan", "Infiniti", "Toyota", "Hyundai", "Ford", "GMC", "Chevy", "Honda"};
+        for (String car : cars){
+            NameData newName = new NameData(car, 1000);
+            newMaleNamesList.insertAlpha(newName);
+        }
+        System.out.println(newMaleNamesList.toString());
+
+        /*
+        System.out.println(newNameYall.getBabyName() + " " + newNameYall.getNameNumberNumber());
+        System.out.println(nothaNewNameYall.getBabyName() + " " + nothaNewNameYall.getNameNumberNumber());
+        System.out.println(newNameYall.compareTo(nothaNewNameYall));
+         */
+
+        //nothaNewNameYall.occurrenceIncrementUpdate(2000);
+        //System.out.println(nothaNewNameYall.getNameNumberNumber());
 
 
+
+
+
+
+        /*
         while (i < args.length)  { // we iterate through args
             if (args[i].equals("-f")){ // if it is '-f' then we can add the next element in args to female names
                 try {
@@ -87,8 +109,14 @@ public class Main {
             }
         }
 
+
+         */
+        //System.out.println(Arrays.toString(args));
+
         // These if-else statements verify that there are names and years to search through. Otherwise there is no reason
         // for the code to run.
+
+        /*
         if (fileNames.isEmpty()){ throw new IllegalArgumentException ("No data set to search on!"); }
         else if (maleNames.isEmpty() && femaleNames.isEmpty()) {throw new IllegalArgumentException("No names to analyze!");}
 
@@ -141,6 +169,9 @@ public class Main {
         //System.out.println(System.out.println(String.format("%.6g%n", fraction));
 
 
+         */
+
+        /*
         // Output of Statistics
         try {
             for (String maleName : maleNames) { // first we iterate through the male names inputted through the args array.
@@ -172,6 +203,8 @@ public class Main {
             System.out.println("Division by zero.");
         }
 
+
+         */
         /*
         for (String file : fileNames){
             CSVReader reader = new CSVReader(new FileReader(file));
